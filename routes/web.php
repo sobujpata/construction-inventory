@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BnLocationController;
+use App\Http\Controllers\buyProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
@@ -67,6 +68,15 @@ Route::post("/delete-customer",[CustomerController::class,'CustomerDelete'])->mi
 Route::post("/update-customer",[CustomerController::class,'CustomerUpdate'])->middleware([TokenVerificationMiddleware::class]);
 Route::post("/customer-by-id",[CustomerController::class,'CustomerByID'])->middleware([TokenVerificationMiddleware::class]);
 
+//buy product Route
+Route::get('/buy-product', [buyProductController::class, 'index'])->middleware([TokenVerificationMiddleware::class]);
+
+//buy product API
+Route::get('/buying-details', [buyProductController::class, 'buyingDetails'])->middleware([TokenVerificationMiddleware::class]);
+Route::post('/buying-details-store', [buyProductController::class, 'store'])->middleware([TokenVerificationMiddleware::class]);
+Route::post('/buying-details-by-id', [buyProductController::class, 'show'])->middleware([TokenVerificationMiddleware::class]);
+Route::post('/buying-details-update/{id}', [buyProductController::class, 'update'])->middleware([TokenVerificationMiddleware::class]);
+Route::post('/buying-details-delete', [buyProductController::class, 'destroy'])->middleware([TokenVerificationMiddleware::class]);
 
 // Product API
 Route::post("/create-product",[ProductController::class,'CreateProduct'])->middleware([TokenVerificationMiddleware::class]);

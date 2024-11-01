@@ -1,35 +1,70 @@
 <div class="modal animated zoomIn" id="create-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-md modal-dialog-centered">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Create Customer</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Create Subscribers</h5>
                 </div>
                 <div class="modal-body">
                     <form id="save-form">
                     <div class="container">
                         <div class="row">
-                            <div class="col-12 p-1">
-                                <label class="form-label">Customer Name *</label>
+                            <div class="col-md-6 col-12">
+                                <label class="form-label">Subscriber Name *</label>
                                 <input type="text" class="form-control" id="customerName">
-                                <label class="form-label">Customer Email *</label>
+                            </div>
+                            <div class="col-md-6 col-12">
+                                <label class="form-label">Subscriber Email *</label>
                                 <input type="text" class="form-control" id="customerEmail">
-                                <label class="form-label">Customer Mobile *</label>
+                            </div>
+                            <div class="col-md-6 col-12">
+                                <label class="form-label">Subscriber Mobile *</label>
                                 <input type="text" class="form-control" id="customerMobile">
-                                <label class="form-label">Customer Division *</label>
-                                <input type="text" class="form-control" id="customerDivision">
-                                <label class="form-label">Customer District *</label>
-                                <input type="text" class="form-control" id="customerDistrict">
-                                <label class="form-label">Customer Upazila *</label>
-                                <input type="text" class="form-control" id="customerUpazila">
-                                <label class="form-label">Customer Union *</label>
-                                <input type="text" class="form-control" id="customerUnion">
-                                <label class="form-label">Customer Postal Code *</label>
-                                <input type="text" class="form-control" id="customerPostaCode">
-                                <label class="form-label">Customer Village *</label>
+                            </div>
+                            <div class="col-md-6 col-12">
+                                <label class="form-label">Subscriber Division *</label>
+                                <select type="text" class="form-control form-select" id="customerDivision">
+                                    <option value="">Select Division</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 col-12">
+                                <label class="form-label">Subscriber District *</label>
+                                <select type="text" class="form-control form-select" id="customerDistrict">
+                                    <option value="">Select District</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 col-12">
+                                <label class="form-label">Subscriber Upazila *</label>
+                                <select type="text" class="form-control form-select" id="customerUpazila">
+                                    <option value="">Select Upazila</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 col-12">
+                                <label class="form-label">Subscriber Union *</label>
+                                <select type="text" class="form-control form-select" id="customerUnion">
+                                    <option value="">Select Union</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 col-12">
+                                <label class="form-label">Subscriber Postal Code *</label>
+                                <input type="text" class="form-control" id="customerPostalCode">
+                            </div>
+                            <div class="col-md-6 col-12">
+                                <label class="form-label">Subscriber Village *</label>
                                 <input type="text" class="form-control" id="customerVillage">
-                                <label class="form-label">Customer Present Address *</label>
+                            </div>
+                            <div class="col-md-6 col-12">
+                                <label class="form-label">Subscriber Present Address *</label>
                                 <input type="text" class="form-control" id="customerPresentAddress">
                             </div>
+
+                            <div class="col-md-6 col-12">
+                                <label class="form-label">Subscriber Profile *</label>
+                                <input oninput="newImg.src=window.URL.createObjectURL(this.files[0])" type="file" class="form-control" id="profile">
+                            </div>
+                            <div class="col-md-6 col-12">
+                                <img class="w-15" id="newImg" src="{{asset('images/default.jpg')}}"/>
+                            </div>
+
                         </div>
                     </div>
                     </form>
@@ -44,6 +79,32 @@
 
 
 <script>
+    FillDivisionDropDown();
+
+    async function FillDivisionDropDown(){
+        let res = await axios.get("/division")
+        let resDistrict = await axios.get("/district")
+        let resUpazila = await axios.get("/upazila")
+        let resUnion = await axios.get("/union")
+
+        res.data.forEach(function (item,i) {
+            let option=`<option value="${item['id']}">${item['name']}</option>`
+            $("#customerDivision").append(option);
+        })
+        resDistrict.data.forEach(function (item,i) {
+            let option=`<option value="${item['id']}">${item['name']}</option>`
+            $("#customerDistrict").append(option);
+        })
+        resUpazila.data.forEach(function (item,i) {
+            let option=`<option value="${item['id']}">${item['name']}</option>`
+            $("#customerUpazila").append(option);
+        })
+        resUnion.data.forEach(function (item,i) {
+            let option=`<option value="${item['id']}">${item['name']}</option>`
+            $("#customerUnion").append(option);
+        })
+
+    }
 
     async function Save() {
 
@@ -57,6 +118,7 @@
         let customerPostalCode = document.getElementById('customerPostalCode').value;
         let customerVillage = document.getElementById('customerVillage').value;
         let customerPresentAddress = document.getElementById('customerPresentAddress').value;
+        let profile = document.getElementById('profile').files[0];
 
         if (customerName.length === 0) {
             errorToast("Customer Name Required !")
@@ -79,7 +141,7 @@
         else if(customerUnion.length===0){
             errorToast("Customer Union Required !")
         }
-        else if(customerPostCode.length===0){
+        else if(customerPostalCode.length===0){
             errorToast("Customer PostCode Required !")
         }
         else if(customerVillage.length===0){
@@ -88,30 +150,38 @@
         else if(customerPresentAddress.length===0){
             errorToast("Customer PresentAddress Required !")
         }
+        else if(!profile){
+            errorToast("Subscriber Image Required !")
+        }
         else {
 
             document.getElementById('modal-close').click();
 
+            let formData=new FormData();
+            formData.append('name',customerName)
+            formData.append('email',customerEmail)
+            formData.append('mobile',customerMobile)
+            formData.append('division',customerDivision)
+            formData.append('district',customerDistrict)
+            formData.append('upazila',customerUpazila)
+            formData.append('union',customerUnion)
+            formData.append('postalCode',customerPostalCode)
+            formData.append('village',customerVillage)
+            formData.append('presenstAddress',customerPresentAddress)
+            formData.append('img',profile)
+
+            const config = {
+                headers: {
+                    'content-type': 'multipart/form-data'
+                }
+            }
             showLoader();
-            let res = await axios.post("/create-customer",{
-                name:customerName,
-                email:customerEmail,
-                mobile:customerMobile,
-                division:customerDivision,
-                district:customerDistrict,
-                upazila:customerUpazila,
-                union:customerUnion,
-                postalCode:customerPostCode,
-                village:customerVillage,
-                presenstAddress:customerPresentAddress })
+            let res = await axios.post("/create-customer",formData,config)
             hideLoader();
 
             if(res.status===201){
-
                 successToast('Request completed');
-
                 document.getElementById("save-form").reset();
-
                 await getList();
             }
             else{

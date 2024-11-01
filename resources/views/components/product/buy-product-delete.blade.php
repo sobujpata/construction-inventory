@@ -10,8 +10,8 @@
             </div>
             <div class="modal-footer justify-content-end">
                 <div>
-                    <button type="button" id="delete-modal-close" class="btn mx-2 bg-gradient-primary" data-bs-dismiss="modal">Cancel</button>
-                    <button onclick="itemDelete()" type="button" id="confirmDelete" class="btn  bg-gradient-danger" >Delete</button>
+                    <button type="button" id="delete-modal-close" class="btn bg-gradient-success mx-2" data-bs-dismiss="modal">Cancel</button>
+                    <button onclick="itemDelete()" type="button" id="confirmDelete" class="btn bg-gradient-danger" >Delete</button>
                 </div>
             </div>
         </div>
@@ -24,7 +24,7 @@
             let deleteFilePath=document.getElementById('deleteFilePath').value;
             document.getElementById('delete-modal-close').click();
             showLoader();
-            let res=await axios.post("/delete-customer",{id:id, file_path:deleteFilePath})
+            let res=await axios.post("/delete-product",{id:id,file_path:deleteFilePath})
             hideLoader();
             if(res.data===1){
                 successToast("Request completed")
