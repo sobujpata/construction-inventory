@@ -85,12 +85,17 @@
 
     <a href="{{url("/categoryPage")}}" class="side-bar-item">
         <i class="bi bi-list-nested"></i>
-        <span class="side-bar-item-caption">Category</span>
+        <span class="side-bar-item-caption">Product Name</span>
     </a>
 
     <a href="{{url("/buy-product")}}" class="side-bar-item">
         <i class="bi bi-bag"></i>
         <span class="side-bar-item-caption">Expenditures</span>
+    </a>
+
+    <a href="{{url("/store-products")}}" class="side-bar-item">
+        <i class="bi bi-currency-dollar"></i>
+        <span class="side-bar-item-caption">Store Manegement</span>
     </a>
 
     <a href="{{url("#")}}" class="side-bar-item">

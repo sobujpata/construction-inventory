@@ -9,13 +9,26 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-12 p-1">
-                                <label class="form-label">Category</label>
+                                <label class="form-label">Product Name</label>
                                 <select type="text" class="form-control form-select" id="productCategoryUpdate">
-                                    <option value="">Select Category</option>
+                                    <option value="">Select Product</option>
                                 </select>
 
+                                <label class="form-label mt-2">Qty</label>
+                                <input type="text" class="form-control" id="qtyUpdate">
+                                <label class="form-label mt-2">Unit</label>
+                                <input type="text" class="form-control" id="unitUpdate">
+                                <label class="form-label mt-2">Rate</label>
+                                <input type="text" class="form-control" id="rateUpdate">
+                                
                                 <label class="form-label mt-2">Product Cost</label>
                                 <input type="text" class="form-control" id="productCostUpdate">
+
+                                <label class="form-label mt-2">Payment</label>
+                                <input type="text" class="form-control" id="paymentUpdate">
+
+                                <label class="form-label mt-2">Due</label>
+                                <input type="text" class="form-control" id="dueUpdate">
 
 
                                 <br/>
@@ -72,13 +85,23 @@
 
         document.getElementById('productCategoryUpdate').value=res.data['category_id'];
         document.getElementById('productCostUpdate').value=res.data['product_cost'];
-
+        document.getElementById('qtyUpdate').value=res.data['qty'];
+        document.getElementById('unitUpdate').value=res.data['unit'];
+        document.getElementById('rateUpdate').value=res.data['rate'];
+        document.getElementById('paymentUpdate').value=res.data['payment'];
+        document.getElementById('dueUpdate').value=res.data['due'];
         }
 
 
         async function update() {
     let productCostUpdate = document.getElementById('productCostUpdate').value;
-    // let carringCostUpdate = document.getElementById('carringCostUpdate').value;
+    
+    let qtyUpdate = document.getElementById('qtyUpdate').value;
+    let unitUpdate = document.getElementById('unitUpdate').value;
+    let rateUpdate = document.getElementById('rateUpdate').value;
+    let paymentUpdate = document.getElementById('paymentUpdate').value;
+    let dueUpdate = document.getElementById('dueUpdate').value;
+
     let productCategoryUpdate = document.getElementById('productCategoryUpdate').value;
     let updateID = document.getElementById('updateID').value;
     let filePath = document.getElementById('filePath').value;
@@ -87,7 +110,7 @@
     // Debug logs
     // console.log("Category ID:", productCategoryUpdate);
     // console.log("Product Cost:", productCostUpdate);
-    // console.log("Carring Cost:", carringCostUpdate);
+    console.log("qty Cost:", qtyUpdate);
 
     // Validation
     if (productCategoryUpdate.length === 0) {
@@ -107,7 +130,11 @@
         let formData = new FormData();
         formData.append('category_id', parseInt(productCategoryUpdate));
         formData.append('product_cost', productCostUpdate);
-        // formData.append('other_cost', carringCostUpdate);
+        formData.append('qty', qtyUpdate);
+        formData.append('unit', unitUpdate);
+        formData.append('rate', rateUpdate);
+        formData.append('payment', paymentUpdate);
+        formData.append('due', dueUpdate);
 
         if (InvoiceImgUpdate) {
             formData.append('invoice_url', InvoiceImgUpdate);

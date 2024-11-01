@@ -10,13 +10,28 @@
                         <div class="row">
                             <div class="col-12 p-1">
 
-                                <label class="form-label">Category</label>
+                                <label class="form-label">Product Name</label>
                                 <select type="text" class="form-control form-select" id="productCategory">
-                                    <option value="">Select Category</option>
+                                    <option value="">Select Product</option>
                                 </select>
 
-                                <label class="form-label mt-2">Total Expenditure</label>
+                                <label class="form-label mt-2">Product Qty</label>
+                                <input type="text" class="form-control" id="qty">
+
+                                <label class="form-label mt-2">Unit</label>
+                                <input type="text" class="form-control" id="unit">
+
+                                <label class="form-label mt-2">Rate</label>
+                                <input type="text" class="form-control" id="rate">
+
+                                <label class="form-label mt-2">Total Price</label>
                                 <input type="text" class="form-control" id="productCost">
+
+                                <label class="form-label mt-2">Payment</label>
+                                <input type="text" class="form-control" id="payment">
+
+                                <label class="form-label mt-2">Due</label>
+                                <input type="text" class="form-control" id="due">
 
                                 <br/>
                                 <img class="w-15" id="newImg" src="{{asset('images/default.jpg')}}"/>
@@ -58,7 +73,11 @@
 
         let productCategory=document.getElementById('productCategory').value;
         let productCost = document.getElementById('productCost').value;
-        // let carringCost = document.getElementById('carringCost').value;
+        let qty = document.getElementById('qty').value;
+        let unit = document.getElementById('unit').value;
+        let rate = document.getElementById('rate').value;
+        let payment = document.getElementById('payment').value;
+        let due = document.getElementById('due').value;
         let InvoiceImg = document.getElementById('InvoiceImg').files[0];
 
         if (productCategory.length === 0) {
@@ -76,9 +95,14 @@
 
             document.getElementById('modal-close').click();
             let formData=new FormData();
-            formData.append('invoice_url',InvoiceImg)
-            formData.append('product_cost',productCost)
             formData.append('category_id',productCategory)
+            formData.append('qty',qty)
+            formData.append('unit',unit)
+            formData.append('rate',rate)
+            formData.append('product_cost',productCost)
+            formData.append('payment',payment)
+            formData.append('due',due)
+            formData.append('invoice_url',InvoiceImg)
 
             const config = {
                 headers: {

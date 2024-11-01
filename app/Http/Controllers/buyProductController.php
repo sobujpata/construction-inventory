@@ -61,7 +61,11 @@ class buyProductController extends Controller
             'user_id'=>$user_id,
             'category_id'=>$request->input('category_id'),
             'product_cost'=>$request->input('product_cost'),
-            // 'other_cost'=>$request->input('other_cost'),
+            'qty'=>$request->input('qty'),
+            'unit'=>$request->input('unit'),
+            'rate'=>$request->input('rate'),
+            'payment'=>$request->input('payment'),
+            'due'=>$request->input('due'),
             'invoice_url'=>$img_url,
 
         ]);
@@ -93,6 +97,11 @@ class buyProductController extends Controller
     $validatedData = $request->validate([
         'category_id' => 'required|integer',
         'product_cost' => 'required|string|max:255',
+        'qty' => 'required|string|max:255',
+        'unit' => 'required|string|max:255',
+        'rate' => 'required|string|max:255',
+        'payment' => 'required|string|max:255',
+        'due' => 'required|string|max:255',
         'invoice_url' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
     ]);
     $product_id = $id; // Assuming $id is validated as a string
@@ -121,10 +130,15 @@ class buyProductController extends Controller
             'product_cost' => $request->input('product_cost'),
             'invoice_url' => $img_url,
             'category_id' => $request->input('category_id'),
+            'qty' => $request->input('qty'),
+            'unit' => $request->input('unit'),
+            'rate' => $request->input('rate'),
+            'payment' => $request->input('payment'),
+            'due' => $request->input('due'),
         ]);
 
         if ($updated) {
-            return response()->json(['message' => 'Buy Product updated with new image'], 200);
+            return response()->json( ['data'=>$updated, 'message' => 'Buy Product updated with new image'], 200);
         } else {
             return response()->json(['message' => 'Failed to update Buy product'], 500);
         }
@@ -134,6 +148,11 @@ class buyProductController extends Controller
     $updated = BuyProduct::where('id', $product_id)->update([
         'product_cost' => $request->input('product_cost'),
         'category_id' => $request->input('category_id'),
+        'qty' => $request->input('qty'),
+            'unit' => $request->input('unit'),
+            'rate' => $request->input('rate'),
+            'payment' => $request->input('payment'),
+            'due' => $request->input('due'),
     ]);
 
     if ($updated) {

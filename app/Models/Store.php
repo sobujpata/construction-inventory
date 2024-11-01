@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class BuyProduct extends Model
+class Store extends Model
 {
     protected $fillable = [
-        "user_id","category_id", "product_cost", "qty", "invoice_url", "unit", "rate", "payment", "due"
+        'category_id', 'uses_qty', 'balance'
     ];
     public function category()
     {

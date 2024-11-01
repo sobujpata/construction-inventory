@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BnLocationController;
 use App\Http\Controllers\buyProductController;
+use App\Http\Controllers\StoreController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
@@ -77,6 +78,14 @@ Route::post('/buying-details-store', [buyProductController::class, 'store'])->mi
 Route::post('/buying-details-by-id', [buyProductController::class, 'show'])->middleware([TokenVerificationMiddleware::class]);
 Route::post('/buying-details-update/{id}', [buyProductController::class, 'update'])->middleware([TokenVerificationMiddleware::class]);
 Route::post('/buying-details-delete', [buyProductController::class, 'destroy'])->middleware([TokenVerificationMiddleware::class]);
+
+
+//Store Api
+Route::get('/store-products', [StoreController::class, 'index']);
+Route::get('/store-products-list', [StoreController::class, 'storeList']);
+Route::post('/store-products-create', [StoreController::class, 'storeCreate']);
+Route::post('/store-item-by-id', [StoreController::class, 'storeItemById']);
+Route::post('/store-update/{id}', [StoreController::class, 'storeItemUpdate']);
 
 // Product API
 Route::post("/create-product",[ProductController::class,'CreateProduct'])->middleware([TokenVerificationMiddleware::class]);
