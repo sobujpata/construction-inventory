@@ -96,6 +96,8 @@ Route::get("/collection",[CollectionController::class,'CollectionPage'])->middle
 //Collection API
 Route::get("/collection-list", [CollectionController::class, 'CollectionList'])->middleware([TokenVerificationMiddleware::class]);
 Route::post("/collection-create", [CollectionController::class, 'CollectionCreate'])->middleware([TokenVerificationMiddleware::class]);
+Route::post("/collection-by-id", [CollectionController::class, 'CollectionById'])->middleware([TokenVerificationMiddleware::class]);
+Route::post("/collection-update/{id}", [CollectionController::class, 'CollectionUpdate'])->middleware([TokenVerificationMiddleware::class]);
 
 // Product API
 Route::post("/create-product",[ProductController::class,'CreateProduct'])->middleware([TokenVerificationMiddleware::class]);

@@ -21,7 +21,7 @@ class CollectionController extends Controller
 
     public function CollectionCreate(Request $request){
         $request->validate([
-            'customer_id' => 'required|integer',  
+            'customer_id' => 'required|integer',
             'amount' => 'required|numeric|min:0',
             'due' => 'nullable|numeric|min:0'
         ]);
@@ -43,5 +43,39 @@ class CollectionController extends Controller
             'due' => $request->input('due')
         ]);
 
+    }
+
+    public function CollectionById(Request $request){
+        $collection = Collection::with('customer')->find($request->input('id'));
+        return response()->json(['data' => $collection]);
+
+    }
+
+    public function CollectionUpdate(Request $request){
+        $request->validate([
+            'id' => 'required|exists:stores,id',  // Ensures 'id' exists in 'stores' table
+            'dueAmount' => 'required|numeric|min:0',
+            'paymentDue' => 'required|numeric|min:0',
+            'mainAmount' => 'required|numeric|min:0'
+        ]);
+    
+        $id = $request->input('id');
+        $dueAmount = $request->input('dueAmount');
+        $paymentDue = $request->input('paymentDue');
+        $mainAmount = $request->input('mainAmount');
+        $due = $dueAmount - $paymentDue;
+        $amount = $mainAmount + $paymentDue;
+    
+        $updateCount = Collection::where('id', $id)->update([
+            "due" => $due,
+            "amount" => $amount
+        ]);
+    
+        if ($updateCount) {
+            $updateCollection = Collection::find($id);  // Retrieve updated record
+            return response()->json(['data' => $updateCollection]);
+        } else {
+            return response()->json(['error' => 'Update failed'], 500);
+        }
     }
 }

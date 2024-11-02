@@ -11,13 +11,15 @@
                         <div class="row">
                             <div class="col-12 p-1">
                                 <label class="form-label">Customer Name</label>
-                                <input type="text" id="productCategoryUpdate" name="categoryName" class="form-control" readonly>
-                                
-                                <label class="form-label mt-2">Item Use Old</label>
-                                <input type="number" class="form-control" id="usesQtyUpdate" readonly>
+                                <input type="text" id="castomerName" name="castomerName" class="form-control" readonly>
 
-                                <label class="form-label mt-2">Item Use</label>
-                                <input type="number" class="form-control" id="usesQtyUpdateNew">
+                                <label class="form-label mt-2">Due Amount</label>
+                                <input type="number" class="form-control" id="dueAmount" readonly>
+
+                                <label class="form-label mt-2">Payment Due</label>
+                                <input type="number" class="form-control" id="paymentDue">
+
+                                <input type="number" class="d-none" id="mainAmount">
 
                                 <input type="text" class="d-none" id="updateID">
                             </div>
@@ -47,33 +49,28 @@
 
 
         showLoader();
-        // await UpdateFillCategoryDropDown();
-
-        let res=await axios.post("/store-item-by-id",{id:id})
+        let res=await axios.post("/collection-by-id",{id:id})
         hideLoader();
-
-        document.getElementById('productCategoryUpdate').value=res.data.data['category_id'];
-        document.getElementById('productCategoryUpdate').value=res.data.data['category']['categoryName'];
-
-
-        document.getElementById('usesQtyUpdate').value=res.data.data['uses_qty'];
-
+        console.log(res);
+        document.getElementById('castomerName').value=res.data.data['customer']['name'];
+        document.getElementById('dueAmount').value=res.data.data['due'];
+        document.getElementById('mainAmount').value=res.data.data['amount'];
         }
 
 
     async function update() {
-    let usesQtyUpdate = document.getElementById('usesQtyUpdate').value;
-    let usesQtyUpdateNew = document.getElementById('usesQtyUpdateNew').value;
-    let productCategoryUpdate = document.getElementById('productCategoryUpdate').value;
+    let dueAmount = document.getElementById('dueAmount').value;
+    let paymentDue = document.getElementById('paymentDue').value;
+    let mainAmount = document.getElementById('mainAmount').value;
     let updateID = document.getElementById('updateID').value;
 
 
     // Validation
-    if (productCategoryUpdate.length === 0) {
-        errorToast("Product Category Required !");
+    if (dueAmount.length === 0) {
+        errorToast("Product Due Amount Required !");
         return;
-    } else if (usesQtyUpdate.length === 0) {
-        errorToast("Product Cost Required !");
+    } else if (paymentDue.length === 0) {
+        errorToast("Product Payment Amount Required !");
         return;
     }
 
@@ -81,9 +78,9 @@
         document.getElementById('update-modal-close').click(); // Close modal if form is valid
 
         let formData = new FormData();
-        formData.append('category_id', parseInt(productCategoryUpdate));
-        formData.append('uses_qty', usesQtyUpdate);
-        formData.append('uses_qty_new', usesQtyUpdateNew);
+        formData.append('dueAmount', dueAmount);
+        formData.append('paymentDue', paymentDue);
+        formData.append('mainAmount', mainAmount);
         formData.append('id', updateID);
 
 
@@ -96,7 +93,7 @@
 
         try {
             showLoader();
-            let res = await axios.post(`/store-update/${updateID}`, formData, config);
+            let res = await axios.post(`/collection-update/${updateID}`, formData, config);
             hideLoader();
 
             if (res.status === 200) {
