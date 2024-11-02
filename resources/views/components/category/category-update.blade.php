@@ -2,14 +2,14 @@
     <div class="modal-dialog modal-md modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Update Category</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Update Item</h5>
             </div>
             <div class="modal-body">
                 <form id="update-form">
                     <div class="container">
                         <div class="row">
                             <div class="col-12 p-1">
-                                <label class="form-label">Category Name *</label>
+                                <label class="form-label">Item Name *</label>
                                 <input type="text" class="form-control" id="categoryNameUpdate">
                                 <input class="d-none" id="updateID">
                             </div>

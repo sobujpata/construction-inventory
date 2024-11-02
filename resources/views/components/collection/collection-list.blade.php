@@ -4,7 +4,7 @@
         <div class="card px-1 py-4">
             <div class="row justify-content-between ">
                 <div class="align-items-center col">
-                    <h4>Expenditures List</h4>
+                    <h4>Collection From Subscribers</h4>
                 </div>
                 <div class="align-items-center col">
                     <button data-bs-toggle="modal" data-bs-target="#create-modal" class="float-end btn m-0  bg-gradient-primary">Create</button>
@@ -15,14 +15,9 @@
                 <thead>
                 <tr class="bg-light">
                     <th>Ser No</th>
-                    <th>Item Name</th>
-                    <th>Qty</th>
-                    <th>Unit</th>
-                    <th>Rate</th>
+                    <th>Customer Name</th>
                     <th>Total Amount</th>
-                    <th>Payment</th>
-                    <th>Due</th>
-                    <th>Date</th>
+                    <th>Due Amount</th>
                     <th>Action</th>
                 </tr>
                 </thead>
@@ -44,10 +39,10 @@ async function getList() {
 
 
     showLoader();
-    let res=await axios.get("buying-details");
+    let res=await axios.get("collection-list");
     hideLoader();
 
-    // console.log(res);
+    console.log(res);
 
 
 
@@ -57,10 +52,9 @@ async function getList() {
     tableData.DataTable().destroy();
     tableList.empty();
 
-    res.data.data.forEach(function (item,index) {
+    res.data.forEach(function (item,index) {
 
         const createdAt = new Date(item.created_at);
-        // const formattedDate = createdAt.toISOString().split('T')[0]; // '2024-10-10'
         const formattedDate = createdAt.toLocaleString('en-GB', {
                 timeZone: 'Asia/Dhaka',
                 year: 'numeric',
@@ -70,18 +64,11 @@ async function getList() {
 
         let row=`<tr>
                     <td>${index+1}</td>
-                    <td>${item['category']['categoryName']}</td>
-                    <td>${item['qty']}</td>
-                    <td>${item['unit']}</td>
-                    <td>${item['rate']}</td>
-                    <td>${item['product_cost']}</td>
-                    <td>${item['payment']}</td>
+                    <td>${item['customer']['name']}</td>
+                    <td>${item['amount']}</td>
                     <td>${item['due']}</td>
-                    <td>${formattedDate}</td>
                     <td>
-                        <button data-path="${item['invoice_url']}" data-id="${item['id']}" class="btn editBtn btn-sm btn-outline-success">Edit</button>
-
-                        <button class="btn btn-sm btn-outline-primary"><a href="${item['invoice_url']}" target="_blank">View</a> </button>
+                        <button data-id="${item['id']}" class="btn editBtn btn-sm btn-outline-success">Edit</button>
                         <button data-path="${item['invoice_url']}" data-id="${item['id']}" class="btn deleteBtn btn-sm btn-outline-danger ${res.data['role'] === '1'?'':'d-none'}">Delete</button>
                     </td>
                  </tr>`
@@ -89,8 +76,8 @@ async function getList() {
     })
     $('.editBtn').on('click', async function () {
            let id= $(this).data('id');
-           let filePath= $(this).data('path');
-           await FillUpUpdateForm(id,filePath)
+        //    let filePath= $(this).data('path');
+           await FillUpUpdateForm(id)
            $("#update-modal").modal('show');
     })
 

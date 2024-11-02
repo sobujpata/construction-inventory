@@ -2,14 +2,14 @@
     <div class="modal-dialog modal-dialog-centered modal-md">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h6 class="modal-title" id="exampleModalLabel">Create Category</h6>
+                    <h6 class="modal-title" id="exampleModalLabel">Create Item</h6>
                 </div>
                 <div class="modal-body">
                     <form id="save-form">
                     <div class="container">
                         <div class="row">
                             <div class="col-12 p-1">
-                                <label class="form-label">Category Name *</label>
+                                <label class="form-label">Item Name *</label>
                                 <input type="text" class="form-control" id="categoryName">
                             </div>
                         </div>

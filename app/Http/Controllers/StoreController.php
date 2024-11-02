@@ -15,9 +15,9 @@ class StoreController extends Controller
 
     public function storeList() {
         $stores = Store::with('category')->get();
-    
+
         $data = [];
-    
+
         foreach ($stores as $store) {
             $buyProductQty = BuyProduct::where('category_id', $store->category_id)->sum('qty');
             $buyProductUnit = BuyProduct::where('category_id', $store->category_id)->value('unit');
@@ -27,7 +27,7 @@ class StoreController extends Controller
                 'unit' => $buyProductUnit
             ];
         }
-    
+
         return response()->json(['data' => $data]);
     }
 
@@ -37,16 +37,16 @@ class StoreController extends Controller
             'category_id' => 'required|integer',
             'uses_qty' => 'required|numeric|min:0'
         ]);
-    
+
         // Check if a Store entry with the same category_id already exists
         $existingStore = Store::where('category_id', $request->input('category_id'))->first();
-    
+
         if ($existingStore) {
             return response()->json([
                 'message' => 'A store with this Item Name already exists.'
             ], 409); // 409 Conflict status code
         }
-    
+
         // Create and return the new store entry
         return Store::create([
             'category_id' => $request->input('category_id'),
@@ -56,13 +56,32 @@ class StoreController extends Controller
 
 
     public function storeItemById(Request $request){
-        $store = Store::find($request->input('id'));
+        $store = Store::with('category')->find($request->input('id'));
         return response()->json(['data' => $store]);
     }
 
-    public function storeItemUpdate(Request $request){
-        $store = Store::find($request->input('id'));
-        $store->update($request->all());    
-        return response()->json(['data' => $store]);
+    public function storeItemUpdate(Request $request) {
+        $request->validate([
+            'id' => 'required|exists:stores,id',  // Ensures 'id' exists in 'stores' table
+            'uses_qty' => 'required|numeric|min:0',
+            'uses_qty_new' => 'required|numeric|min:0'
+        ]);
+    
+        $id = $request->input('id');
+        $currentQty = $request->input('uses_qty');
+        $additionalQty = $request->input('uses_qty_new');
+        $newUsesQty = $currentQty + $additionalQty;
+    
+        $updateCount = Store::where('id', $id)->update([
+            "uses_qty" => $newUsesQty
+        ]);
+    
+        if ($updateCount) {
+            $updatedStore = Store::find($id);  // Retrieve updated record
+            return response()->json(['data' => $updatedStore]);
+        } else {
+            return response()->json(['error' => 'Update failed'], 500);
+        }
     }
+    
 }

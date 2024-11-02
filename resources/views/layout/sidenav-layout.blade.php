@@ -85,7 +85,7 @@
 
     <a href="{{url("/categoryPage")}}" class="side-bar-item">
         <i class="bi bi-list-nested"></i>
-        <span class="side-bar-item-caption">Product Name</span>
+        <span class="side-bar-item-caption">Item Name</span>
     </a>
 
     <a href="{{url("/buy-product")}}" class="side-bar-item">
@@ -98,7 +98,7 @@
         <span class="side-bar-item-caption">Store Manegement</span>
     </a>
 
-    <a href="{{url("#")}}" class="side-bar-item">
+    <a href="{{url("/collection")}}" class="side-bar-item">
         <i class="bi bi-currency-dollar"></i>
         <span class="side-bar-item-caption">Collection</span>
     </a>

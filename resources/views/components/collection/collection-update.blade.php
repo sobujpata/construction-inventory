@@ -1,3 +1,4 @@
+
 <div class="modal animated zoomIn" id="update-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -9,7 +10,7 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-12 p-1">
-                                <label class="form-label">Product Name</label>
+                                <label class="form-label">Customer Name</label>
                                 <input type="text" id="productCategoryUpdate" name="categoryName" class="form-control" readonly>
                                 
                                 <label class="form-label mt-2">Item Use Old</label>

@@ -2,16 +2,16 @@
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Update Buy Product</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Update Expenditures</h5>
             </div>
             <div class="modal-body">
                 <form id="update-form">
                     <div class="container">
                         <div class="row">
                             <div class="col-12 p-1">
-                                <label class="form-label">Product Name</label>
+                                <label class="form-label">Item Name</label>
                                 <select type="text" class="form-control form-select" id="productCategoryUpdate">
-                                    <option value="">Select Product</option>
+                                    <option value="">Select Item</option>
                                 </select>
 
                                 <label class="form-label mt-2">Qty</label>
@@ -21,7 +21,7 @@
                                 <label class="form-label mt-2">Rate</label>
                                 <input type="text" class="form-control" id="rateUpdate">
                                 
-                                <label class="form-label mt-2">Product Cost</label>
+                                <label class="form-label mt-2">Item Cost</label>
                                 <input type="text" class="form-control" id="productCostUpdate">
 
                                 <label class="form-label mt-2">Payment</label>

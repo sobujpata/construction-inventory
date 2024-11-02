@@ -4,6 +4,7 @@ use App\Http\Controllers\BnLocationController;
 use App\Http\Controllers\buyProductController;
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CollectionController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
@@ -80,12 +81,21 @@ Route::post('/buying-details-update/{id}', [buyProductController::class, 'update
 Route::post('/buying-details-delete', [buyProductController::class, 'destroy'])->middleware([TokenVerificationMiddleware::class]);
 
 
-//Store Api
-Route::get('/store-products', [StoreController::class, 'index']);
-Route::get('/store-products-list', [StoreController::class, 'storeList']);
-Route::post('/store-products-create', [StoreController::class, 'storeCreate']);
-Route::post('/store-item-by-id', [StoreController::class, 'storeItemById']);
-Route::post('/store-update/{id}', [StoreController::class, 'storeItemUpdate']);
+//Store Route
+Route::get('/store-products', [StoreController::class, 'index'])->middleware([TokenVerificationMiddleware::class]);
+//Store API
+Route::get('/store-products-list', [StoreController::class, 'storeList'])->middleware([TokenVerificationMiddleware::class]);
+Route::post('/store-products-create', [StoreController::class, 'storeCreate'])->middleware([TokenVerificationMiddleware::class]);
+Route::post('/store-item-by-id', [StoreController::class, 'storeItemById'])->middleware([TokenVerificationMiddleware::class]);
+Route::post('/store-update/{id}', [StoreController::class, 'storeItemUpdate'])->middleware([TokenVerificationMiddleware::class]);
+
+
+//Collection Route
+Route::get("/collection",[CollectionController::class,'CollectionPage'])->middleware([TokenVerificationMiddleware::class]);
+
+//Collection API
+Route::get("/collection-list", [CollectionController::class, 'CollectionList'])->middleware([TokenVerificationMiddleware::class]);
+Route::post("/collection-create", [CollectionController::class, 'CollectionCreate'])->middleware([TokenVerificationMiddleware::class]);
 
 // Product API
 Route::post("/create-product",[ProductController::class,'CreateProduct'])->middleware([TokenVerificationMiddleware::class]);

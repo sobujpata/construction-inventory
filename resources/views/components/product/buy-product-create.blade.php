@@ -2,7 +2,7 @@
     <div class="modal-dialog modal-md modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Create Product</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Create Expenditures</h5>
                 </div>
                 <div class="modal-body">
                     <form id="save-form">
@@ -10,21 +10,28 @@
                         <div class="row">
                             <div class="col-12 p-1">
 
-                                <label class="form-label">Product Name</label>
+                                <label class="form-label">Item Name</label>
                                 <select type="text" class="form-control form-select" id="productCategory">
-                                    <option value="">Select Product</option>
+                                    <option value="">Select Item</option>
                                 </select>
 
-                                <label class="form-label mt-2">Product Qty</label>
+                                <label class="form-label mt-2">Item Qty</label>
                                 <input type="text" class="form-control" id="qty">
 
                                 <label class="form-label mt-2">Unit</label>
-                                <input type="text" class="form-control" id="unit">
+                                <select name="unit" id="unit" class="form-control form-select">
+                                    <option value="">Select Unit</option>
+                                    <option value="Kg">Kilogram</option>
+                                    <option value="Bug">Bug</option>
+                                    <option value="Pcs">Pcs</option>
+                                </select>
+                                {{-- <input type="text" class="form-control" id="unit"> --}}
 
                                 <label class="form-label mt-2">Rate</label>
                                 <input type="text" class="form-control" id="rate">
 
                                 <label class="form-label mt-2">Total Price</label>
+                                
                                 <input type="text" class="form-control" id="productCost">
 
                                 <label class="form-label mt-2">Payment</label>
